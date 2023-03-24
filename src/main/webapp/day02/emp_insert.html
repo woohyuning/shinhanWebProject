@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>직원등록1</title>
+<style>
+	table, th, td {
+		 		text-align: center;
+				border:1px solid black;
+				border-collapse:collapse; /* 테이블테두리 1줄 */
+				width:300px;
+				height: 30px;
+	}
+</style>
+</head>
+<body>
+	<h1>직원정보입력1</h1>
+	<form action="empInsert.jsp" method="post">
+	<table>
+		<tr>
+			<td>직원번호</td>
+			<td><input type="number" name="employee_id" required="required" autofocus="autofocus" placeholder="직원번호는sequence처리함"></td>
+		</tr>
+		<tr>
+			<td>firstName</td>
+			<td><input type="text" name="first_name" maxlength="20"></td>
+		</tr>
+		<tr>
+			<td>lastName</td>
+			<td><input type="text" name="last_name" required="required"></td>
+		</tr>
+		<tr>
+			<td>이메일</td>
+			<td><input type="email" name="email" required="required"></td>
+		</tr>
+		<tr>
+			<td>연락처</td>
+			<td><input type="tel" name="phone_number" pattern="010-[0-9]{4}-[0-9]{4}]" value="010-1234-1234"></td>
+		</tr>
+		<tr>
+			<td>입사일</td>
+			<td><input type="date" name="hire_date" required="required" value="2021-01-10"></td>
+		</tr>
+		<tr>
+			<td>직급</td>
+			<td><input type="text" name="job_id" required="required" value="IT_PROG"></td>
+		</tr>
+		<tr>
+			<td>급여</td>
+			<td><input type="number" name="salary" value="1000"></td>
+		</tr> 
+		<tr>
+			<td>커미션</td>
+			<td><input type="number" name="commission_pct" step="0.1" min="0.1" max="0.9" value="0.2"></td>
+		</tr>
+		<tr>
+			<td>매니저</td>
+			<td><input type="number" name="manager_id" value="100"></td>
+		</tr>
+		<tr>
+ 		<!-- <td>부서</td>
+			<td><input type="number" name="department_id" value="10"></td> -->
+			<td>부서</td>
+			<td>
+				<input list="dept_id_list" name="department_id" id="department_id">
+				<datalist id="dept_id_list">
+					<option value="10" label="10"></option>
+					<option value="20" label="20"></option>
+					<option value="30" label="30"></option>
+				</datalist>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" value="직원등록">
+			</td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>

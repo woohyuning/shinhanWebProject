@@ -34,12 +34,12 @@ public class EmpDAO {
 						PHONE_NUMBER,
 						HIRE_DATE,
 						JOB_ID,
-						f_tax(SALARY) SALARY,
+						SALARY,
 						COMMISSION_PCT,
 						MANAGER_ID,
-						DEPARTMENT_ID,
-				from employees
-				order by 1
+						DEPARTMENT_ID
+						from employees
+						order by 1
 				""";
 		List<EmpVO> empList = new ArrayList<>();
 		conn = OracleUtil.getConnection();
