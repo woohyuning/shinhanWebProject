@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript문법4</title>
+<script src="external.js"></script>
+<script>
+//  같은 이름의 함수가 있는 경우 나중에 선언된 것이 유효하다.
+	function call() {
+		alert("interanal JavaScript");
+	};
+	function call2() {
+//		산술 > 비교 > 논리
+		document.querySelector("#here").innerHTML = 30 > 20 > 10;
+		document.querySelector("#here").innerHTML += "<br>" + (30 > 20);
+		document.querySelector("#here").innerHTML += "<br>" + (true > 10);
+		document.querySelector("#here").innerHTML += "<br>" + (30 > 20 && 20 > 10);
+		
+		document.getElementById("here").innerHTML += "<br>!!!!!";
+	};
+	function call3() {
+//		호이스팅 var a; 먼저 수행한다
+		document.getElementById("here").innerHTML
+			+= "<br>" + a + " : " + typeof(a); // not defined은 오류
+		
+			var a = 100; // 변수가 지역선언되고 초기값은 undefined 
+		
+		document.getElementById("here").innerHTML
+			+= "<br>" + a + " : " + typeof(a);
+	};
+	function call4() {
+		// 리턴값 : 입력한 값
+		var age = prompt("나이를 입력하세요", 20);
+		document.getElementById("here").innerHTML = "당신의 나이는 " + (age - 2);
+	};
+	function call5() {
+		// 리턴값 : 불리언(true, false)
+		var result = confirm("작업을 계속 하시겠습니까?");
+		document.getElementById("here").innerHTML = result ? "OK" : "Cancel";
+	};
+	function call6() {
+		// NaN(Not a Number) : 숫자형 문자가 아니다, 숫자가 아닌 문자가 있다
+		var age = "20살";
+		//document.getElementById("here").innerHTML = Number(age) + 10;
+		// parseInt : 뒤에 있는 문자 무시, 숫자형 문자만 숫자로 변경
+		document.getElementById("here").innerHTML = parseInt(age) + 10;
+	};
+	function call7() {
+		document.getElementById("here").innerHTML
+			= Boolean(0) + " : " + Boolean('')  + " : " + Boolean(null)
+				+ " : "  + Boolean(undefined) + " : "  + Boolean(NaN);
+		var result;
+		if(result) {
+			document.getElementById("here").innerHTML += " OK";
+		} else {
+			document.getElementById("here").innerHTML += " Not";
+		}
+	};
+	function call8() {
+		var a = 100;
+		var b = "100";
+//		== 는 값이 같은지 비교
+//		=== 는 값과 타입이 일지한지 비교
+		document.getElementById("here").innerHTML = (a === b);
+	};
+	function call9() {
+		var input = prompt("숫자를 입력하세요", 0);
+		var result;
+		if(input == 0) {
+			result = "0 입니다"
+		} else if(input > 0) {
+			result = "양수입니다"
+		} else {
+			result = "음수입니다"
+		}
+		document.getElementById("here").innerHTML = result
+	};
+	function call10() {
+		var input = prompt("숫자를 입력하세요", 0);
+		var result;
+		if(input%2 == 0) {
+			result = "짝수입니다"
+		} else {
+			result = "홀수입니다"
+		}
+		document.getElementById("here").innerHTML = result
+	};
+	function call11() {
+		var kor = prompt("국어 점수를 입력하세요", 0);
+		var eng = prompt("영어 점수를 입력하세요", 0);
+		var math = prompt("수학 점수를 입력하세요", 0);
+		var sum = parseInt(kor) + parseInt(eng) + parseInt(math);
+		var avg = sum / 3;
+		var result;
+		
+		if(avg >= 90) {
+			result = "수"
+		} else if (avg >= 80) {
+			result = "우"
+		} else if (avg >= 70) {
+			result = "미"
+		} else if (avg >= 60) {
+			result = "양"
+		} else {
+			result = "가"
+		}
+		
+		document.getElementById("here").innerHTML = "합계 : " + sum;
+		document.getElementById("here").innerHTML += "<br> 평균 : " + avg;
+		document.getElementById("here").innerHTML += "<br> 성적 : " + result;
+	};
+	
+</script>
+</head>
+<body>
+	<h1>JavaScript문법</h1>
+	<button onclick="call()">외부js연결</button>
+	<button onclick="call2()">비교연산자, 논리연산자</button>
+	<button onclick="call3()">undefined</button>
+	<button onclick="call4()">prompt</button>
+	<button onclick="call5()">comfirm</button>
+	<button onclick="call6()">number</button>
+	<button onclick="call7()">boolean</button>
+	<button onclick="call8()">===</button>
+	<button onclick="call9()">LAB1</button>
+	<button onclick="call10()">LAB2</button>
+	<button onclick="call11()">LAB3</button>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>

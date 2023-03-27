@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>요안도라</title>
+<style>
+/*
+	CSS selector 충돌 : 우선순위(inline > #id > .class > tag이름)
+					   우선순위가 같다면 나중것으로 덮어쓰기가 된다.
+*/
+#container ul {
+	border: 1px dotted blue; /* #container 요소의 모든 하위 ul 요소에 파란 1px 실선 */
+}
+#container > ul {
+	border: 2px dotted green;
+}
+div p {
+	border: 1px dotted blue;
+}
+div > p {
+	background-color: orange;
+}
+h1 + p {
+	font-size: 30px;
+	color: red;
+}
+h1 ~ h2 {
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<h1>h1</h1>
+	<h2>h2</h2>
+	<p>aaa</p>
+	<h2>h2</h2>
+	<p>aaa</p>
+	<h2>h2</h2>
+	<p>aaa</p>
+	<h2>h2</h2>
+	<div>
+		<h1>h1</h1>
+		<p>aaa</p>
+		<p>aaa</p>
+		<p>aaa</p>
+		<header>
+			<p>bbb</p>
+			<p>bbb</p>
+			<p>bbb</p>
+		</header>
+		<p>ccc</p>
+		<p>ccc</p>
+		<p>ccc</p>
+	</div>
+	<section id="container">
+		<header>
+			<h1>예약 방법 및 요금</h1>
+		</header>
+		<p>요안도라에 예약하려면?
+		<ul>
+			<li>예약 방법
+				<ul>
+					<li>직접 통화</li>
+					<li>문자 남기기</li>
+				</ul>
+			</li>
+			<li>요금
+				<ul>
+					<li>1인 : 40,000원</li>
+					<li>2인 : 60,000원</li>
+					<li>3인 : 80,000원</li>
+					<li>4인 : 100,000원</li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>박스모델</title>
+	<style>
+		div {
+			padding:20px;
+			margin:10px;
+		}
+		.box1{
+			background:#ffd800;
+			float:left;
+		}
+		.box2 {
+			background: #0094ff;
+			float:left;
+		}
+		.box3 {
+			background: #00ff21;
+		}
+		.box4 {
+			background:#a874ff;
+			clear:both; /* float에 영향을 미치지 않도록 하겠다. */
+		}
+		ul {
+			border: 1px solid red;
+			list-style: none;
+			/* li가 ul의 범위를 벗어남 ... contents가 없어짐 */
+			/* float 요소까지 포함시키는 새로운 block이 생긴다. */
+			overflow: hidden;
+			padding: 10px;
+		}
+		ul li {
+			border: 1px solid blue;
+			/* 부상하다 : 왼쪽으로 띄운다. */
+			float: left;
+			padding: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box1">박스1</div>
+	<div class="box2">박스2</div>
+	<div class="box3">박스3</div>
+	<div class="box4">박스4</div>
+	<ul>
+		<li>HTML</li>
+		<li>CSS</li>
+		<li>JavaScript</li>
+	</ul>
+</body>
+</html>

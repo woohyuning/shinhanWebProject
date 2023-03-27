@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>가상 클래스</title>
+<style>
+#container {
+	text-align: center;
+	color: #2b2b2b;
+}
+
+table, tb, th {
+	border: 1px solid #ccc;
+}
+
+table {
+	width: 200px;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+td {
+	text-align: left;
+	padding: 10px;
+	padding-left: 20px;
+}
+
+table tr:nth-child(2n+1) {
+	background: lightgray;
+	color: black;
+}
+
+table tr:nth-child(even) {
+	background: black;
+	color: white;
+}
+
+div p:nth-child(even) {
+	/* div의 자손으로 짝수번째에 나오는 p */
+	color: red;
+}
+
+div p:nth-of-type(even) {
+	/* div의 자손으로 p들 중에서 짝수번째에 나오는 p */
+	font-size: 10px;
+	background-color: orange;
+}
+</style>
+</head>
+<body>
+	<div>
+		<h1>nth-child 연습</h1>
+		<p>A1</p>
+		<p>A2</p>
+		<p>A3</p>
+		<p>A4</p>
+		<p>A5</p>
+	</div>
+
+	<div id="container">
+		<h1>건강에 좋은 건강 식품</h1>
+		<table>
+			<tr>
+				<td>블루베리</td>
+			</tr>
+			<tr>
+				<td>귀리</td>
+			</tr>
+			<tr>
+				<td>토마토</td>
+			</tr>
+			<tr>
+				<td>시금치</td>
+			</tr>
+			<tr>
+				<td>적포도주</td>
+			</tr>
+			<tr>
+				<td>견과류</td>
+			</tr>
+			<tr>
+				<td>브로콜리</td>
+			</tr>
+			<tr>
+				<td>연어</td>
+			</tr>
+			<tr>
+				<td>마늘</td>
+			</tr>
+			<tr>
+				<td>녹차</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
