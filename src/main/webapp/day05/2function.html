@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>function연습2</title>
+<script>
+	console.log("1.js");
+	window.onload = f1; // f1()함수 이름을 load 후 수행하라는 의미
+
+	function f1() {
+		here.innerHTML = 'JS에서 접근';
+
+		btn1.onclick = function() {
+			here.innerHTML = sum(10, 20, 30); // 남는 경우
+			here.innerHTML += "<br>" + sum(10); // 부족한 경우
+			here.innerHTML += "<br>" + sum(10, 20);
+		};
+
+		btn2.onclick = function() {
+			var a = Array();
+			var b = Array(5);
+			var c = Array(100, 200, 300);
+
+			here.innerHTML = a.length;
+			here.innerHTML += "<br>" + b.length;
+			here.innerHTML += "<br>" + c;
+		};
+		btn3.onclick = function() {
+			here.innerHTML = sumAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+			
+			// 함수 이름이 충돌되면 나중에 선언한 함수가 실행된다.
+			// 반드시 수행해야하는 함수를 내부함수로 만들 수 있다.
+			// 내부함수
+			function sumAll() {
+				// 내장변수 arguments
+				var total = 0;
+				for (let i = 0; i < arguments.length; i++) {
+					total += arguments[i];
+				}
+				return total;
+			}
+		};
+		btn4.onclick = function() {
+			alert = 100;
+			delete alert;
+			//alert(alert);
+			alert("메시지 띄우기");
+		};
+		// callback : 행위는 내가 결정, 시점은 받은 쪽에서 결정
+		btn5.onclick = function() {
+			var myFunction = function() {
+				here.innerHTML += "<p>JS배우기</p>";
+			};
+			call(myFunction);
+		};
+		btn6.onclick = function() {
+			timer = setInterval(function() {
+				here.innerHTML += "<br>" + new Date();
+			}, 1000);
+		};
+		btn7.onclick = function() {
+			clearInterval(timer);
+		};
+	}
+	function call(ff) {
+		ff();
+		ff();
+	}
+	function sum(a, b) {
+		return b;
+	}
+
+	function sumAll() {
+		return 999;
+	}
+</script>
+</head>
+<body>
+	<script>
+		console.log("2.js");
+	</script>
+	<h1>JavaScript function</h1>
+	<hr>
+	<button id="btn1">함수의 매개변수</button>
+	<button id="btn2">Array</button>
+	<button id="btn3">arguments.. 내부함수연습</button>
+	<button id="btn4">이름충돌</button>
+	<button id="btn5">callback함수</button>
+	<button id="btn6">callback함수(타이머시작)</button>
+	<button id="btn7">callback함수(타이머중지)</button>
+	<hr>
+	<div id="here">여기</div>
+	<script>
+		console.log("3.js");
+		//here.innerHTML = "JS에서 접근";
+	</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Function / BOM</title>
+<script>
+	// callback : 정의는 내가하고 호출은 받은쪽에서 한다.
+	window.onload = function() {
+		btn1.onclick = function() {
+			for ( var prop in window) {
+				here.innerHTML += "<br>" + prop + " -> " + window[prop];
+			}
+		};
+		btn2.onclick = function() {
+			call(function() {
+				alert("익명함수입니다.");
+			});
+		};
+		btn3.onclick = function() {
+			timer = setInterval(function() {
+				here.innerHTML = new Date();
+			}, 1000);
+		};
+		btn4.onclick = function() {
+			clearInterval(timer);
+		};
+		btn5.onclick = function() {
+			var f = closerTest(300);
+			here.innerHTML = f();
+		};
+		var f1 = add(0);
+		var f2 = add(100);
+		btn6.onclick = function() {
+			here.innerHTML = f1();
+		};
+		btn7.onclick = function() {
+			here.innerHTML = f2();
+		};
+		btn8.onclick = call;
+		btn9.onclick = call2;
+		btn10.onclick = call3;
+		btn11.onclick = function() {
+			var score = [100, 99, 50, 88];
+			
+			score.forEach(function(elt, index, arr) { // ( ) => { }
+				here.innerHTML += "<br>" + index + "번째 : " + elt;
+			});
+		};
+		
+		function call() {
+			for (var i = 0; i < 3; i++) {
+				setTimeout(function() {
+					alert(i);
+				}, 0);
+			}
+		}
+		function call3() {
+			// let는 block{ } 내에서 변수가 유효, 클로저 지원
+			for (let i = 0; i < 3; i++) {
+				setTimeout(function() {
+					alert(i);
+				}, 0);
+			}
+		}
+		function call2() {
+			for (var i = 0; i < 3; i++) {
+				(function(aa) {
+					setTimeout(function() {
+						alert(aa);
+					}, 0);
+				})(i);
+			}
+		}
+	};
+	// 지역변수는 지역을 떠나면 사라진다
+	// 클로저를 이용하면 규칙위반 가능하다
+	// 지역변수를 포함한 함수를 return하면 계속 유효하다
+	function closerTest(b) {
+		var a = 100;
+		return function() {
+			var c = 200;
+			return a + b + c + 1000;
+		}
+	}
+	function call(f) {
+		f();
+	}
+	function add(start) {
+		var count = start;
+		return function() {
+			count++;
+			return count;
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>Function / BOM</h1>
+	<hr>
+	<button id="btn1">window 객체</button>
+	<button id="btn2">callback함수</button>
+	<button id="btn3">Timer시작</button>
+	<button id="btn4">Timer종료</button>
+	<button id="btn5">클로저</button>
+	<button id="btn6">클로저(증가-0)</button>
+	<button id="btn7">클로저(증가-100)</button>
+	<button id="btn8">클로저(var)</button>
+	<button id="btn9">클로저(지역변수사용)</button>
+	<button id="btn10">클로저(let)</button>
+	<button id="btn11">클로저(자동)</button>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>

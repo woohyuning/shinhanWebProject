@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>function연습</title>
+<style>
+	h1 {
+		background-color: orange;
+	}
+</style>
+<script>
+	console.log("head에 internal javascript작성")
+</script>
+<script>
+	score = 100; // global
+	var scroe2 = 200 // global
+	function call() {
+		a = 10; // 이 부분을 수행하면 global변수가 된다.
+		var b = 20; // local변수(call() 함수 내 사용가능)
+		let c = 30; // { } 안에서 유효
+		{ let d = 40; }; // { } 안에서 유효
+		// document.getElementById("here")
+		here.innerHTML = a+b+c; // not defined 오류
+	}
+	window.onload = function() {
+		// alert('load됨');
+		document.getElementById("btn2").onclick = function () {
+			here.innerHTML = "버튼누름"
+			
+			//number(123), string("", '', ``), boolean(true,false)
+			// undefined(선언되었지만 할당안함), function(function(){}), object({}, 배열[], typeof())
+			var age = prompt("나이를 입력하세요", 20);
+			here.innerHTML = age + " 데이터타입 : " + typeof(age);
+			var name;
+			here.innerHTML = name + " : " + typeof(name);
+		}
+	}
+	
+</script>
+</head>
+<body>
+	<h1>JavaScript --- function 문법들</h1>
+	<hr>
+	<button onclick="call()">변수복습(inline 방식)</button>
+	<button id="btn2">데이터 타입</button>
+	<button id="btn3">선언적 함수(이름O)</button>
+	<button id="btn4">익명 함수(이름X)</button>
+	<hr>
+	<div id="here">여기</div>
+	<img alt="food그림" src="../html5-css3-master/16/images/food.jpg" width="200" height="200">
+	<script>
+		btn3.onclick = f3;
+		btn4.onclick = function() {
+			here.innerHTML += "이름이 없는 익명 함수이다.<br>"
+			f3();
+			
+			(function() {
+				alert("익명");
+			})(); // 정의하고 실행함
+			
+			var a = function() { alert("익명2");};
+			a();
+			a();
+		}
+		
+		function f3() {
+			here.innerHTML += "이름이 있는 선언적 함수이다.<br>"
+		}
+	</script>
+</body>
+</html>
