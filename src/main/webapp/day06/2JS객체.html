@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript Object</title>
+</head>
+<script
+	src="https://cdn.jsdelivr.net/npm/underscore@latest/underscore-umd-min.js"></script>
+<script>
+	window.onload = function() {
+		//alert("load끝");
+		here.innerHTML = "<h1>load끝</h1>"
+		btn1.onclick = call;
+		btn2.onclick = call2;
+		btn3.onclick = call3;
+		btn4.onclick = call4;
+		btn5.onclick = call5;
+		btn6.onclick = call6;
+		btn7.onclick = call7;
+		btn8.onclick = call8;
+		btn9.onclick = call9;
+	};
+	function call() {
+		var a = 10; // 기본형
+		var b = new Number(10); // 객체
+		console.log(a, typeof(a));
+		console.log(b, typeof(b));
+		console.log(a + b);
+		
+		// Number는 내장객체... 공유영역에 함수가 추가가능
+		Number.prototype.myFunction = function() {
+			alert("함수추가");
+		};
+		a.myFunction2 = function() { // 불가
+			alert("함수추가2");
+		};
+		b.myFunction2 = function() { // 가능
+			alert("함수추가2");
+		};
+		
+		a.myFunction();
+		b.myFunction();
+		
+		//a.myFunction2(); 오류
+		b.myFunction2();
+	}
+	function call2() {
+		var arr = [100, 50, 70, 200];
+		var str = "";
+		arr.push(300);
+		arr.sort(function(left, right) {
+			return left - right;
+		}); // 기본은 문자 sorting
+		arr.forEach((item, index)=>{
+			str += `<p>${index}번째 ${item}</p>`;
+		});
+		here.innerHTML = str;
+	}
+	// 생성자 함수
+	function Student(name, age, java, sql, jdbc) {
+		this.name = name;
+		this.age = age;
+		this.java = java;
+		this.sql = sql;
+		this.jdbc = jdbc;
+	}
+	function call3() {
+		var arr = [];
+		arr.push(new Student("배동열1",20, 100, 99, 88));
+		arr.push(new Student("배동열3",21, 99, 99, 88));
+		arr.push(new Student("배동열5",22, 88, 88, 99));
+		arr.push(new Student("배동열2",23, 77, 99, 88));
+		arr.push(new Student("배동열4",24, 66, 100, 88));
+		
+		Student.prototype.getSum = function() {
+			return this.java + this.sql + this.jdbc;
+		};
+		Student.prototype.getAvg = function() {
+			return this.getSum() / 3; 
+		};
+		Student.prototype.toString = function() {
+			return `이름은 ${this.name} ${this.age} ${this.java} ${this.sql} ${this.jdbc}  총점 : ${this.getSum()} 평균 : ${this.getAvg()}`;
+		};
+		
+		// 점수순으로 descendng
+		arr.sort((a,b) => b.getSum() - a.getSum());
+		
+		// 이름순으로 Sort
+		/* arr.sort((a,b) => {
+			if(a==b) return 0;
+			if(a>b) return 1;
+			return -1;
+		}); */
+		
+		arr = arr.slice(0,3); // 0 <=   < 3
+		
+		for(var index in arr) {
+			here.innerHTML += `<p>${arr[index]}</p>`;
+		}
+	}
+	function call4() {
+		// 배열을 문자열로 만들기(join)
+		var arr = [100, 50, 70, 200];
+		here.innerHTML = arr.join("***");
+	}
+	function call5() {
+		var arr = [100, 50, 70, 200];
+		var result = arr.map((item) => item/10);
+		here.innerHTML = result.join("***");
+	}
+	function call6() {
+		var arr = [6, 2, 5, 1, 2, 4, 3, 7, 10, 8, 9];
+		var result = arr.filter((item) => item%3 == 0);
+		here.innerHTML = result.join("***");
+	}
+	function call7() {
+		var arr = [6, 2, 5, 1, 4, 3, 7, 10, 8, 9];
+		var result = arr.reduce((before, current) => {
+			here.innerHTML += `<p>${before} --- ${current}</p>`;
+			return before + current;
+		});
+		here.innerHTML += "<br>" + result;
+	}
+	function call8() {
+		var obj = {};
+		obj.name = "경윤";
+		obj.age = 25;
+		obj.address = "홍대";
+		let jsonStr = JSON.stringify(obj);
+		console.log(obj, typeof(obj));
+		console.log(obj, typeof(jsonStr));
+		console.log(obj.name);
+		console.log(jsonStr.name); // undefined
+		// JavaScript에서 서버로 전송하기 위해 JSON으로 변경한다.
+		//---------------------------------------------
+		// 서버에서 JSON으로 보내면 JavaScript 객체로 변경한다.
+		var obj2 = JSON.parse(jsonStr);
+		console.log(obj2.name);
+	}
+	function call9() {
+		var stooges = [{name: 'moe', age: 80}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+		stooges = _.sortBy(stooges, 'age');
+		for(var index in stooges) {
+			here.innerHTML += `<p>${stooges[index].name} --- ${stooges[index].age}</p>`;
+		}
+		//=> [{name: 'curly', age: 60}, {name: 'larry', age: 50}, {name: 'moe', age: 40}];
+	}
+</script>
+<body>
+	<h1>JS Object에 대하여~~</h1>
+	<hr>
+	<button id="btn1">Number 객체</button>
+	<button id="btn2">Array 객체</button>
+	<button id="btn3">Array Sort</button>
+	<button id="btn4">Array Join</button>
+	<button id="btn5">Map 함수</button>
+	<button id="btn6">filter 함수</button>
+	<button id="btn7">reduce 함수</button>
+	<button id="btn8">JSON</button>
+	<button id="btn9">underscoreJS</button>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>
