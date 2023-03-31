@@ -14,7 +14,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>전체직원조회</title>
+<script>
+	$(function(){
+		$("thead tr th").click(function() {
+			//내가 클릭한 th가 몇번째인가?
+			var trNum = $(this).closest("th").prevAll().length;
+			var a = $("tbody tr").each(function(index, item) {
+				var col = $(item).find("td:nth-child(" + (trNum+1) + ")");
+				console.log(col);
+				//되돌리기(기존선택을 clear)
+				$(item).find("td").css("background-color", "white");
+				//신규선택의 색깔 바꾸기
+				$(col).css("background-color", "orange");
+			});
+		});
+		
+		$("#btn1").click(function() {
+			$("tr:nth-child(2n)").css("background-color", "lightgray");
+			$("tr:nth-child(2n+1)").css("background-color", "white");
+		});
+		
+		$("#btn2").click(function() {
+			$("tr > td:nth-child(2):contains('S')").css("color", "red");
+		});
+		
+		$("#btn3").click(function() {
+			$("tr td:contains('S')").css("color", "red");
+		});
+		$("#btn4").click(function() {
+			$("tr > td:nth-child(8)").each(function(index, item) {
+				var sal = parseInt($(item).html()) + 1;
+				
+				if(sal >= 5000) {
+					$(item).css("background-color", "lightgreen");
+				}
+			});
+		});
+		
+		$("#btn5").click(function() {
+			var arr = $("tr > td:nth-child(1)");
+			
+			$.each(arr, function(index, item) {
+				console.log($(item).text());
+				if(parseInt($(item).text()) % 2 == 1) {
+					$(item).parseInt().css("background-color", "green");
+				}
+			});
+		});
+	});
+</script>
 <!-- <style>
 	body {
 		background-color: black;
@@ -50,7 +101,14 @@
 <div id="container" class="container mt-3">
 <h1>직원목록</h1>
 <button type="button" class="btn btn-success" onclick="location.href='emp_insert.html'">직원등록</button>
-<a ctype="button" class="btn btn-success" href="emp_insert.html">직원등록</a>
+<a type="button" class="btn btn-success" href="emp_insert.html">직원등록</a>
+<hr>
+<button id="btn1">짝수row선택</button>
+<button id="btn2">이름S로 시작하는 직원</button>
+<button id="btn3">S가 포홤된 문자</button>
+<button id="btn4">급여5000이상</button>
+<button id="btn4">ID가 홀수번 째 직원</button>
+<hr>
 <table class="table table-hover">
 	<thead>
 		<tr>

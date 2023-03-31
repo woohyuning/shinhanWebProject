@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function check(selectNo) {
+		var imgName = "";
+		if (selectNo == 1) {
+			imgName = "images/img1.jpg";
+		} else {
+			imgName = "images/img2.jpg";
+		}
+		//document.getElementById("inputImage");
+		var inputImg = document.querySelector("#inputImage");
+		//obj.innerHTML = `<img src="${imgName}>"`;
+		//inputImg.innerHTML = "<img src=" + imgName + ">";
+		var element = document.createElement("img");
+		element.src = imgName;
+		inputImg.innerHTML = "";
+		inputImg.appendChild(element);
+	}
+</script>
+</head>
+<body>
+	<div id="inputImage"></div>
+	<form>
+		<input type="button" value="사진1" onclick="check(1)" />
+		<input type="button" value="사진2" onclick="check(2)" />
+	</form>
+	<hr>
+	<form name="form">
+		<fieldset>
+			<legend>개인정보</legend>
+			<label for="jumin1">주민번호</label>
+			<input type="text" name="jumin1"
+				id="jumin1" size="6" maxlength="6" onkeyup="focusChange(this);" />
+			-
+			<input type="text" name="jumin2" id="jumin2" size="7" maxlength="7"
+				onblur="genderCheck( this.value , form )" /> <br /> <br />
+			<div id="display"></div>
+			<label for="gender">성별</label> <input type="radio" name="gender"
+				value="man" checked="checked" disabled="disabled" />남자 <input
+				type="radio" name="gender" value="woman" disabled="disabled" />여자 <input
+				type="button" value="check" onclick="check2()" />
+		</fieldset>
+	</form>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>event에 대하여</title>
+<script>
+	window.onload = function() {
+		// =를 만나면 오른쪽 먼저 해석
+		// 이벤트핸들러(이벤트리스너)를 왼쪽의 이벤트 속성에 할당한다.
+		// 함수를 수행하는 것이 아니고 이벤트가 발생하면 함수가 호출된다.
+		btn1.onclick = call;
+		btn2.onclick = call2;
+		btn3.onclick = call3;
+		btn4.onclick = call4;
+		form1.onsubmit = validation;
+//		form2.onsubmit = validation2;
+		btnSend.onclick = validation3;
+	};
+	function call() {
+		alert(this.innerHTML);
+		here.innerHTML = this.innerHTML;
+	}
+	function call2() {
+		here.innerHTML = this.innerHTML;
+		this.style.backgroundColor = "orange";
+		btn1.style.backgroundColor = "green";
+		btn1.onclick = null;
+	}
+	function call3(event) {
+		var str = "";
+		for(let key in event) {
+			str += "<br>" + key + " ==> " + event[key];
+		}
+		here.innerHTML = str;
+	}
+	function call4() {
+		here.innerHTML = this.innerHTML;
+		btn2.onclick();
+	}
+	function validation() {
+		alert("validation");
+		var userid = document.querySelector("#userid").value;
+		if(userid.length < 5) 
+			return false; // 서버에 전송하는 행위(default)를 취소
+		//만약에 inline방식으로 작성된 경우 : onsubmit="return validation()"
+		
+		var pw1 = document.querySelector("#userpw1").value;
+		var pw2 = document.querySelector("#userpw2").value;
+		if(pw1 !== pw2) {
+			alert("비밀번호 확인~~~");
+			document.querySelector("#userpw1").value.focus();
+			document.querySelector("#userpw2").value = "";
+			return false;
+		}
+	}
+	function validation2() {
+		var jumin1 = document.querySelector("#jumin1").value;
+		var jumin2 = document.querySelector("#jumin2").value;
+		if(jumin1.length !== 6 || jumin2.length !== 7) {
+			alert("주민번호 입력오류");
+			return false;
+		}
+	}
+	function validation3() {
+		var jumin1 = document.querySelector("#jumin1").value;
+		var jumin2 = document.querySelector("#jumin2").value;
+		if(jumin1.length !== 6 || jumin2.length !== 7) {
+			alert("주민번호 입력오류");
+			return;
+		}
+		location.href = "2.jsp?jumin=123456&jumin2=1234567&gender=남자";
+	}
+	function check2() {
+		//alert("check2");
+	}
+	function focusChange(obj) {
+		console.log(obj.value);
+	}
+	function genderCheck(j2) {
+		//console.log(j2);
+		var gender = j2.substr(0,1);
+		var man = document.querySelector('input[value="man"]');
+		var woman = document.querySelector('input[value="woman"]');
+		// console.log(gender);
+		if(gender == "1" || gender == "3") {
+			woman.removeAttribute("checked");
+			man.setAttribute("checked", "checked");
+		} else if(gender == "2" || gender == "4") {
+			man.removeAttribute("checked");
+			woman.setAttribute("checked", "checked");
+		
+		} else {
+			alert("주민번호 입력오류");
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>Event...event속성(on~~~), evnet handler, event listener(function)</h1>
+	<button id="btn1">이벤트 handler넣기</button>
+	<button id="btn2">이벤트 handler제거</button>
+	<button id="btn3">이벤트 속성</button>
+	<button id="btn4">이벤트 강제호출</button>
+	<button id="btn5">default 이벤트(form --- onSubmit)</button>
+	<form id="form1" action="1.jsp" onsubmit="return validation()">
+		아이디 : <input id="userid" name="userid" value="hr"><br>
+		비밀번호 : <input id="userpw1" name="userpw1" value="1234"><br>
+		비밀번호확인 : <input id="userpw2" name="userpw2" value="1234"><br>
+		<input type="submit" value="서버로전송">
+	</form>
+	<hr>
+	<form id="fom2" name="form" action="2.jsp" onsubmit="return validation2()">
+		<fieldset>
+			<legend>개인정보</legend>
+			<label for="jumin1">주민번호</label>
+			<input type="text" name="jumin1"
+				id="jumin1" size="6" maxlength="6" onkeyup="focusChange(this);" />
+			-
+			<input type="text" name="jumin2" id="jumin2" size="7" maxlength="7"
+				onblur="genderCheck( this.value , form )" /> <br /> <br />
+			<div id="display"></div>
+			<label for="gender">성별</label>
+			<input type="radio" name="gender"
+				value="man" checked="checked" disabled="disabled" />남자
+			<input type="radio" name="gender" value="woman" disabled="disabled" />여자
+			<input id="btnSend" type="button" value="check" />
+		</fieldset>
+	</form>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>
