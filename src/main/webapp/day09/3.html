@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+$(()=>{
+	$("#btn1").on("click", ()=>{
+		$.ajax({
+			url:"job.jsp",
+			data:{"job_id":$("#job_id").val(),
+				  "job_title":$("#job_title").val(),
+				  "max_salary":$("#max_salary").val(),
+				  "min_salary":$("#min_salary").val() 
+			     },
+			method:"post",
+			success:(result,status,xhr)=>{
+				$("#here").html(result);
+			},
+			error:()=>{}
+		});
+	});
+	$("#btn2").on("click", ()=>{
+		// 위 $.get() 호출 결과에 따라 'response' 또는 'Error' 출력
+		getData().then(function(data) {
+			console.log(data); // response 값 출력
+		}).catch(function(err) {
+			console.error(err); // Error 출력
+		});
+		function getData() {
+			return new Promise(function(resolve, reject) {
+				$.get('job.jsp', function(response) {
+					if (response) {
+						resolve(response);
+					//Fulfilled(이행) : 비동기 처리가 완료되어 프로미스가 결과 값을 반환해준 상태
+					}
+					reject(new Error("Request is failed"));
+					//Rejected(실패) : 비동기 처리가 실패하거나 오류가 발생한 상태
+				});
+			});
+		}
+	});
+	
+	$("#btn3").on("click", ()=>{
+		var param = $("form").serialize(); // form의 input들의 name과 value로 name=value 형태로 문자열이 만들어짐
+		console.log(param);
+		$.get("job.jsp?"+param, (result) => {
+			$("#here").html(result);
+		});
+	});
+	
+	$("#btn4").on("click", ()=>{
+		var param = $("form").serializeArray(); 
+		console.log(param);
+		/*.serializeArray()의 결과로 data를 만들어보기
+			{name : 'job_id', value : ''}
+			{name : 'job_title', value : ''}
+			{name : 'max_salary', value : ''}
+			{name : 'min_salary', value : ''}
+		*/
+		var data = {};
+		
+		$.each(param, function(index, item) {
+			console.log(item.name, item.value);
+			data[item.name] = item.value;
+		});
+		
+		$.post("job.jsp?", data, (result) => {
+			$("#here").html(result);
+		});
+	});
+});
+</script>
+</head>
+<body>
+	<h1>jQuery연습</h1>
+	<button id="btn2">promise연습</button>
+	<button id="btn3">get</button>
+	<button id="btn4">post</button>
+	<hr>
+	<form>
+		<label>job id :</label><input type="text" name="job_id" id="job_id" value="" />
+		<label>job title :</label><input type="text" name="job_title" id="job_title" value="" />
+		<label>max salary :</label><input type="number" name="max_salary" id="max_salary"value="" />
+		<label>min salary:</label><input type="number" name="min_salary" id="min_salary" value="" />
+		<input id="btn1" type="button" value="서버에 전송">
+	</form>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>
